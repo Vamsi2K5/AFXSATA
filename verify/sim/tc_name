@@ -1,0 +1,5 @@
+make allv
+make tc=tb_top_sata_phy_ctrl ctb=cocotb_top_sata_phy_ctrl allv
+make tc=tb_top_transport_dma ctb=cocotb_top_transport_dma allv
+make tc=tb_top_sata_bist ctb=cocotb_top_sata_bist allv
+make tc=tb_top_skid_buffer_axis ctb=cocotb_top_skid_buffer_axis allv
