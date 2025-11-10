@@ -223,10 +223,10 @@ cocotb_top_sata_phy_ctrl.py
 cocotb_top.py
 cocotb_top_transport_dma.py
 cocotb_top_sata_bist.py
-tb_top_sata_phy_ctrl.py # phy layer test
-tb_top.py				# link layer test
-tb_top_transport_dma.py # transport & command layer test
-tb_top_sata_bist.py		# bist test
+tb_top_sata_phy_ctrl.sv # phy layer test
+tb_top.sv				        # link layer test
+tb_top_transport_dma.sv # transport & command layer test
+tb_top_sata_bist.sv		  # bist test
 ```
 
 ‍
@@ -254,7 +254,7 @@ tb_top_sata_bist.py		# bist test
 性能测试（Performance Test）
 
 * 配置单包长度 `num`​（单位 DW）
-* 配置速度模式 `speed_test`​：`1`​ 表示写性能测试，`0`​ 表示读性能测试
+* 配置速度模式 `speed_test`​：`1`​ 表示写性能测试，`2`​ 表示读性能测试
 * 启用模块：`enable = 1`​
 * 观察 `timer`​（单位：秒）以及 `wr_cnt_eop`​、`rd_cnt_eop`​，计算实际读写PPS，理论上单次突发长度越大（num越大），带宽越高；实测写入速率可达到上下500MB/s ，读速率达到上下300MB/S
 
