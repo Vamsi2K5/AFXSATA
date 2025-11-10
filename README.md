@@ -245,7 +245,7 @@ tb_top_sata_bist.sv		  # bist test
 * 配置 `cycle`​ 及每轮的读写次数，例如 `cycle = 4`​ 表示每轮写 4 次、读 4 次
 * 配置 `num`​（单包长度，单位为 DW）
 * 配置起始地址 `addr`​
-* 配置 `level`​，默认 `0x7fff_ffff`​，表示写操作有 50% 概率 valid 暂停，读操作有 50% 几率反压
+* 配置 `level`​，默认 `0x7fff_ffff`​，表示写操作有 50% 概率 valid 暂停，读操作有 50% 几率反压，0x0000_0000则是不反压不暂停，数值越大概率越高
 * 关闭速度模式：`speed_test = 0`​
 * 使能模块：`enable = 1`​
 * 观察 `wr_cnt_eop`​ 和 `rd_cnt_eop`​ 表示已读写的包数
