@@ -2,6 +2,9 @@
 
 # AFXSATA — FPGA-based SATA-DMA Host Controller
 
+[![zh](https://img.shields.io/badge/lang-中文-red.svg)](./README.md)
+[![en](https://img.shields.io/badge/lang-English-blue.svg)](./README_en.md)
+
 ## 介绍
 
 **AFXSATA** 是一个基于 **FPGA** 实现的 **SATA-DMA 主机控制器（SATA Host Controller）** ，支持 **SATA 3.0（6 Gbps）**  速率，支持访问256T大小硬盘，并可实现 **高达8 MB 的连续突发 DMA 读写**。
