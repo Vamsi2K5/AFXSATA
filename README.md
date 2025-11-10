@@ -215,7 +215,7 @@ sata_command_dma_ctrl.sv
 
 #### 仿真
 
-运行测试平台需安装cocotb、cocotbext-axi、vivado、vds、verdi。支持两种运行方式：直接使用 pytest（需安装 cocotb-test）、或使用 cocotb makefiles。
+运行测试平台需安装cocotb、cocotbext-axi、vivado、vccs、verdi。支持两种运行方式：直接使用 pytest（需安装 cocotb-test）、或使用 cocotb makefiles。
 
 ```shell
 adcore_cocotb_test_run.py
