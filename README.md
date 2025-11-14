@@ -1,4 +1,4 @@
-# README
+# 自述文件
 
 # AFXSATA — FPGA-based SATA-DMA Host Controller
 
@@ -9,7 +9,7 @@
 
 **AFXSATA** 是一个基于 **FPGA** 实现的 **SATA-DMA 主机控制器（SATA Host Controller）** ，支持 **SATA 3.0（6 Gbps）**  速率，支持访问256T大小硬盘，并可实现 **高达8 MB 的连续突发 DMA 读写**。
 
-该项目基于 **Xilinx GTX（7 系列）**  与 **UltraScale GTH** 高速收发器实现 **SATA 物理层（PHY）** ，**无需依赖厂商 SATA IP 核**，完整覆盖从物理层到命令层的简化DMA 协议。
+该项目基于 **Xilinx GTX（7 系列）**  与 **UltraScale GTH** 、**UltraScale+ GTY**高速收发器实现 **SATA 物理层（PHY）** ，**无需依赖厂商 SATA IP 核**，完整覆盖从物理层到命令层的简化DMA 协议。
 
 设计采用 **极简三接口架构**，高效桥接用户命令接口与 **AXI-Stream** 数据通道，便于系统级集成与快速验证。  
 用户既可以基于现有的物理层与命令层自行构建完整的 SATA 协议栈，也可直接使用命令层代码实现对SATA硬盘的 **DMA读写操作**。
@@ -18,9 +18,9 @@
 
 已验证平台和板卡：
 
-* **STLV-Kintex-7 XC7K325T**
+* **STLV7325 XC7K325T**
 * **Kintex UltraScale XCKU040**
-
+* **RK-XCKU45P Kintex UltraScale+ XCKU5P**
 ‍
 
 ## 说明
