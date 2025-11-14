@@ -20,7 +20,7 @@
 
 * **STLV7325 XC7K325T**
 * **Kintex UltraScale XCKU040**
-* **RK-XCKU45P Kintex UltraScale+ XCKU5P**
+* **RK-XCKU5P Kintex UltraScale+ XCKU5P**
 ‍
 
 ## 说明
