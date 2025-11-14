@@ -7,7 +7,7 @@
 
 **AFXSATA** is an **FPGA-based SATA-DMA Host Controller** that supports **SATA 3.0 (6 Gbps)** and up to **256 TB** of storage capacity. It enables **up to 8 MB of continuous burst DMA read/write operations**.
 
-The project implements the **SATA PHY layer** using **Xilinx GTX (7-Series)** and **UltraScale GTH transceivers**, **without relying on vendor SATA IP cores**. It provides a fully functional, simplified SATA-DMA protocol stack from the physical layer up to the command layer.
+The project implements the **SATA PHY layer** using **Xilinx GTX (7-Series)** and **UltraScale GTH transceivers**、**UltraScale+ GTY transceivers**, **without relying on vendor SATA IP cores**. It provides a fully functional, simplified SATA-DMA protocol stack from the physical layer up to the command layer.
 
 The design adopts a **minimalist three-interface architecture**, efficiently bridging the user command interface and **AXI-Stream** data path, making it easy for system-level integration and verification.
 Users can either build a complete SATA protocol stack based on the provided PHY and command layers or directly use the command layer to perform **DMA read/write operations** to SATA drives.
@@ -18,10 +18,10 @@ Additional materials and detailed **SATA protocol analyses** are available in th
 
 * **STLV-Kintex-7 XC7K325T**
 * **Kintex UltraScale XCKU040**
-
+* **RK-XCKU5P Kintex UltraScale+ XCKU5P ‍**
 ---
 
-## Description
+## 描述
 
 ### Modules
 
