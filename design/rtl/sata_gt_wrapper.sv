@@ -546,6 +546,187 @@ gth_sata_wrapper gth_sata_wrapper_inst (
     ,.txcomfinish_out                         (txcomfinish_out                          )                                        // output wire [0 : 0] txcomfinish_out
 );
 
+`elsif ULTRA_GTY
+// UltraScale GTH transceiver mode signals
+logic               txpolarity_in                       ;   // Transmitter polarity control
+logic [2      :0]   loopback_in                         ;   // Loopback control
+logic [3      :0]   txdiffctrl_in                       ;   // Transmitter differential control
+logic [4      :0]   txpostcursor_in                     ;   // Transmitter post-cursor emphasis
+logic [4      :0]   txprecursor_in                      ;   // Transmitter pre-cursor emphasis
+
+logic               gthrxn_int                          ;   // GTH receiver negative input
+logic               gthrxp_int                          ;   // GTH receiver positive input
+logic               gthtxn_int                          ;   // GTH transmitter negative output
+logic               gthtxp_int                          ;   // GTH transmitter positive output
+logic               gtwiz_userclk_tx_reset_int          ;   // Transmitter user clock reset
+logic               gtwiz_userclk_tx_srcclk_int         ;   // Transmitter source clock (unused)
+logic               gtwiz_userclk_tx_usrclk_int         ;   // Transmitter user clock (unused)
+logic               gtwiz_userclk_tx_usrclk2_int        ;   // Transmitter user clock 2
+logic               gtwiz_userclk_tx_active_int         ;   // Transmitter user clock active (unknown)
+logic               gtwiz_userclk_rx_reset_int          ;   // Receiver user clock reset
+logic               gtwiz_userclk_rx_srcclk_int         ;   // Receiver source clock (unused)
+logic               gtwiz_userclk_rx_usrclk_int         ;   // Receiver user clock (unused)
+logic               gtwiz_userclk_rx_usrclk2_int        ;   // Receiver user clock 2
+logic               gtwiz_userclk_rx_active_int         ;   // Receiver user clock active (unknown)
+
+logic               gtwiz_reset_clk_freerun_in          ;   // Free-running reset clock
+logic               gtwiz_reset_all_in                  ;   // Global reset input
+logic               gtwiz_reset_tx_pll_and_datapath_in  ;   // TX PLL and datapath reset
+logic               gtwiz_reset_tx_datapath_in          ;   // TX datapath reset
+logic               gtwiz_reset_rx_pll_and_datapath_in  ;   // RX PLL and datapath reset
+logic               gtwiz_reset_rx_datapath_in          ;   // RX datapath reset
+logic               gtwiz_reset_tx_done_int             ;   // TX reset done signal
+logic               gtwiz_reset_rx_done_int             ;   // RX reset done signal
+
+logic               gtwiz_reset_rx_cdr_stable_out       ;   // RX CDR stable output
+
+logic [32   -1:0]   gtwiz_userdata_tx_int               ;   // TX user data internal
+logic [32   -1:0]   gtwiz_userdata_rx_int               ;   // RX user data internal
+logic [8    -1:0]   tx_charisk                          ;   // TX character identifier
+logic [16   -1:0]   rx_charisk                          ;   // RX character identifier
+logic               txpmaresetdone_int                  ;   // TX PMA reset done
+logic               rxpmaresetdone_int                  ;   // RX PMA reset done
+logic               gtpowergood_out                     ;   // GT power good output
+logic [2      :0]   rxbufstatus_out                     ;   // RX buffer status
+logic               rxbyteisaligned_out                 ;   // RX byte alignment status
+logic [1      :0]   rxclkcorcnt_out                     ;   // RX clock correction count
+
+logic [15     :0]   rxctrl1_out                         ;   // RX control 1 output
+logic [7      :0]   rxctrl2_out                         ;   // RX control 2 output
+logic [7      :0]   rxctrl3_out                         ;   // RX control 3 output
+logic               rxelecidle_out                      ;   // RX electrical idle output
+logic               txcomfinish_out                     ;   // TX COM finish output
+
+logic               sys_clk                             ;   // System clock
+logic               glb_reset                           ;   // Global reset
+logic               glb_reset_buf                       ;   // Buffered global reset
+logic               gt_refclk                           ;   // GT reference clock
+
+
+
+//GT CLOCK
+assign gthrxn_int                           = gtxrxn;
+assign gthrxp_int                           = gtxrxp;
+assign gtxtxn                               = gthtxn_int;
+assign gtxtxp                               = gthtxp_int;
+
+//USER CLOCK
+assign tx_clk                               = gtwiz_userclk_tx_usrclk2_int;
+assign rx_clk                               = gtwiz_userclk_rx_usrclk2_int;
+
+//GT global reset
+assign glb_reset = ~rst_n;
+BUFG bufg_clk_freerun_inst (
+    .I (glb_reset    ),
+    .O (glb_reset_buf) 
+);
+
+assign gtwiz_reset_clk_freerun_in           = glb_reset_buf;
+assign gtwiz_reset_all_in                   = glb_reset_buf;
+assign gtwiz_reset_tx_pll_and_datapath_in   = glb_reset_buf;
+assign gtwiz_reset_tx_datapath_in           = glb_reset_buf;
+assign gtwiz_reset_rx_pll_and_datapath_in   = glb_reset_buf;
+assign gtwiz_reset_rx_datapath_in           = glb_reset_buf;
+
+//USER reset
+assign gt_dat_rst                           = gtwiz_reset_tx_done_int && gtwiz_reset_rx_done_int;
+
+
+//USER Data
+assign gtwiz_userdata_tx_int                = swap_endian(tx_data_in)                ;
+assign tx_charisk                           = {4'b0,swap_endian_char(tx_charisk_in)} ;
+assign rx_data_out                          = swap_endian(gtwiz_userdata_rx_int)     ;
+assign rx_charisk_out                       = swap_endian_char(rx_charisk[3:0])      ;
+
+//SYC CLOCK
+assign sys_clk = clk;
+
+assign txpolarity_in = 1'b0;
+assign rxpolarity_in = 1'b1;
+assign loopback_in   = 3'b000;
+
+//REF CLOCK
+IBUFDS_GTE4 #(
+.REFCLK_EN_TX_PATH  (1'b0),
+.REFCLK_HROW_CK_SEL (2'b00),
+.REFCLK_ICNTL_RX    (2'b00)
+)
+IBUFDS_GTE4_MGTREFCLK0_X0Y3_INST (
+    .I     (refclkp     ),
+    .IB    (refclkn     ),
+    .CEB   (1'b0        ),
+    .O     (gt_refclk   ),
+    .ODIV2 (            )
+);
+
+assign gtwiz_userclk_tx_reset_int = ~(&txpmaresetdone_int);
+assign gtwiz_userclk_rx_reset_int = ~(&rxpmaresetdone_int);
+
+// GTH transceiver wrapper instantiation
+gth_sata_wrapper gth_sata_wrapper_inst (
+    .gthrxn_in                                (gthrxn_int                               )
+    ,.gthrxp_in                               (gthrxp_int                               )
+    ,.gthtxn_out                              (gthtxn_int                               )
+    ,.gthtxp_out                              (gthtxp_int                               )
+
+    ,.gtwiz_userclk_tx_reset_in               (gtwiz_userclk_tx_reset_int               )
+    ,.gtwiz_userclk_tx_srcclk_out             (gtwiz_userclk_tx_srcclk_int              )
+    ,.gtwiz_userclk_tx_usrclk_out             (gtwiz_userclk_tx_usrclk_int              )
+    ,.gtwiz_userclk_tx_usrclk2_out            (gtwiz_userclk_tx_usrclk2_int             )
+    ,.gtwiz_userclk_tx_active_out             (gtwiz_userclk_tx_active_int              )
+    ,.gtwiz_userclk_rx_reset_in               (gtwiz_userclk_rx_reset_int               )
+    ,.gtwiz_userclk_rx_srcclk_out             (gtwiz_userclk_rx_srcclk_int              )
+    ,.gtwiz_userclk_rx_usrclk_out             (gtwiz_userclk_rx_usrclk_int              )
+    ,.gtwiz_userclk_rx_usrclk2_out            (gtwiz_userclk_rx_usrclk2_int             )
+    ,.gtwiz_userclk_rx_active_out             (gtwiz_userclk_rx_active_int              )
+
+    ,.gtwiz_reset_clk_freerun_in              ({1{sys_clk          }}                   )
+    ,.gtwiz_reset_all_in                      ({1{gtwiz_reset_all_in}}                  )
+    ,.gtwiz_reset_tx_pll_and_datapath_in      (gtwiz_reset_tx_pll_and_datapath_in       )
+    ,.gtwiz_reset_tx_datapath_in              (gtwiz_reset_tx_datapath_in               )
+    ,.gtwiz_reset_rx_pll_and_datapath_in      ({1{gtwiz_reset_rx_pll_and_datapath_in}}  )
+    ,.gtwiz_reset_rx_datapath_in              ({1{gtwiz_reset_rx_datapath_in}}          )
+    ,.gtwiz_reset_rx_cdr_stable_out           (gtwiz_reset_rx_cdr_stable_out            )
+    ,.gtwiz_reset_tx_done_out                 (gtwiz_reset_tx_done_int                  )
+    ,.gtwiz_reset_rx_done_out                 (gtwiz_reset_rx_done_int                  )
+
+    ,.gtwiz_userdata_tx_in                    (gtwiz_userdata_tx_int                    )
+    ,.gtwiz_userdata_rx_out                   (gtwiz_userdata_rx_int                    )
+
+    ,.drpclk_in                               (sys_clk                                  )
+    ,.gtrefclk0_in                            (gt_refclk                                )
+    ,.loopback_in                             (loopback_in                              )
+    ,.rx8b10ben_in                            (1'b1                                     )
+    ,.rxbufreset_in                           (1'b0                                     )
+    ,.tx8b10ben_in                            (1'b1                                     )
+    ,.txcominit_in                            (tx_cominit                               )
+    ,.txcomwake_in                            (tx_comwake                               )
+    ,.txctrl0_in                              (16'd0                                    )
+    ,.txctrl1_in                              (16'd0                                    )
+    ,.txctrl2_in                              (tx_charisk                               )
+    ,.txdiffctrl_in                           (DIFFCTRL                                 )
+    ,.rxpolarity_in                           (rxpolarity_in                            )
+    ,.txpolarity_in                           (txpolarity_in                            )
+    ,.txpostcursor_in                         (POSTCUSOR                                )
+    ,.txprecursor_in                          (PRECUSOR                                 )
+    ,.gtpowergood_out                         (gtpowergood_out                          )
+    ,.rxbufstatus_out                         (rxbufstatus_out                          )
+    ,.rxbyteisaligned_out                     (rxbyteisaligned_out                      )
+    ,.rxclkcorcnt_out                         (rxclkcorcnt_out                          )
+    ,.rxcominitdet_out                        (rx_cominit                               )
+    ,.rxcomwakedet_out                        (rx_comwake                               )
+    ,.rxctrl0_out                             (rx_charisk                               )
+    ,.rxctrl1_out                             (rxctrl1_out                              )
+    ,.rxctrl2_out                             (rxctrl2_out                              )
+    ,.rxctrl3_out                             (rxctrl3_out                              )
+    ,.rxpmaresetdone_out                      (rxpmaresetdone_int                       )
+    ,.txpmaresetdone_out                      (txpmaresetdone_int                       )
+
+    ,.rxelecidlemode_in                       (2'b00                                    )                                    // input wire [1 : 0] rxelecidlemode_in
+    ,.rxelecidle_out                          (rxelecidle_out                           )                                          // output wire [0 : 0] rxelecidle_out
+    ,.txcomfinish_out                         (txcomfinish_out                          )                                        // output wire [0 : 0] txcomfinish_out
+);
+
 `endif
 
 endmodule

@@ -1,0 +1,1 @@
+`define ULTRA_GTY
