@@ -4,6 +4,8 @@
 
 [![zh](https://img.shields.io/badge/lang-中文-red.svg)](./README.md)
 [![en](https://img.shields.io/badge/lang-English-blue.svg)](./README_en.md)
+![Static Badge](https://img.shields.io/badge/version-vivado2020.2-yellow?style=plastic)
+
 
 ## 介绍
 
